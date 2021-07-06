@@ -1,0 +1,109 @@
+FUNCTION: validate input
+
+validate input string if it is in the correct format:
+a letter and a number (ex: 'A1')
+
+PARAM:  input (string)
+RETURN: is valid (boolean)
+
+// handle incorrect length
+IF input length IS NOT 2: RETURN FALSE
+
+/** handle incorrect format **/
+// first value not a character
+IF first character in string IS NOT type character: RETURN FALSE
+
+// character value not in range
+IF first character in string IS NOT in range [A>>I]: RETURN FALSE
+
+// second value not a character
+IF second character in string IS NOT type integer: RETURN FALSE
+
+// integer value not in range
+IF second character in string IS NOT in range [1>>9]: RETURN FALSE
+
+ELSE: (all conditions met)
+    RETURN TRUE
+
+
+
+FUNCTION: apply game rules
+
+verifies the input according to the rules of sudoku.
+
+PARAM: desired location (string) [format: a letter and a number - ex: 'A1'] desired value (integer) combined grid (2-dimensional static array)
+RETURN: is legal (boolean)
+
+// ASSERT valid range
+IF desired value is not in range [1>>9]: RETURN FALSE
+
+* Sudoku Rule Nº 1:
+* There is no more than one instance of a given number on a given row.
+
+// validate by row
+FOR cell numbers in row:
+    IF desired value IS cell number: RETURN FALSE
+
+* Sudoku Rule Nº 2:
+* There is no more than one instance of a given number on a given column.
+
+// validate by column
+FOR cell numbers in column:
+    IF desired value IS cell number: RETURN FALSE
+
+
+* Sudoku Rule Nº 3:
+* Every square can consist of a single digit between 1 and 9 exclusively, or can be blank.
+// validate by square
+if desired column is in 1-3:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+
+* Sudoku Rule Nº 4:
+* There is no more than one instance of a given number on an inside square (the 
+if desired column is in 4-6:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+if desired column is in 7-9:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+IF desired value IS EQUAL TO any of the values in square:
+    RETURN FALSE
+ELSE IF not: RETURN TRUE
+

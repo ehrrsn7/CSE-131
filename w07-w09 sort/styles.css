@@ -1,0 +1,57 @@
+h1 {
+    color: rgb(60, 60, 60);
+    background-color: white;
+    border-radius: 7px;
+    text-align: center;
+    padding: 2px;
+    width: 125px;
+}
+
+body {
+    color: black;
+    background-color: rgb(230, 230, 230);
+    font-family: 
+'Segoe dUI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+table {
+    column-span: all;
+}
+
+td {
+    width: 400px;
+    vertical-align: text-top;
+}
+
+label {
+    padding: 1em;
+}
+
+input {
+    background-color: white;
+    padding: 2em;
+    border-radius: 7px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    width: 500px;
+    height: 50px;
+}
+
+button {
+    --color: rgb(240, 240, 240);
+    background-color: var(--color);
+    border-color: var(--color);
+    border-style: hidden;
+    border: 2em;
+    border-color: black;
+    border-radius: 7px;
+    padding: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+ol {
+    padding: 1.5em;
+    position: relative;
+}
+

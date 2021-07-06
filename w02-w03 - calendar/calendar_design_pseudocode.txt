@@ -1,0 +1,58 @@
+object: Date = { year, month, day }
+
+main()
+    GET Date ASSIGN return value of get_date()
+    DISPLAY display(Date)
+
+get_date()
+    // prompt
+    LOOP:
+        // (WHILE loop for infinite attempts)
+        // (FOR loop for finite number of attempts)
+        // prompt:
+        INSTANTIATE and GET year
+        INSTANTIATE and GET month
+
+        // validate:
+        year:   reprompt IF NOT IN range(1753 … )
+        month:  reprompt IF NOT IN range(1 … 12)
+        IF NOT reprompt: exit loop
+
+    // assign number of days in month according to month/year
+    INSTANTIATE day
+    CALL get_days_in_month()
+    ASSIGN return value from get_days_in_month() to day
+
+    RETURN Date(year, month, day)
+
+calculate_offset(year, month)
+    INSTANTIATE offset to 0
+    INSTANTIATE days_in_current_month
+    FOR i <- 1753 ... year:
+        ASSIGN (update value) days_in_current_month 
+        to return value of get_days_in_month(month, year)
+        
+        ADD days_in_current_month MOD 7 to offset
+        ASSIGN (update value) offset to offset MOD 7
+    
+    ASSERT offset IS GREATER THAN/EQUAL TO 0 AND IS LESS THAN 7
+    RETURN offset
+
+
+// Given by professor... (I changed it a little)
+display(dow, num_days)
+    PUT table header (SU MO TU …)
+
+    FOR i ← 0 … dow
+        PUT four spaces
+
+    FOR dom ← 1 … num_days
+        PUT dom
+         
+        dow += 1
+        IF dow MOD 7 = 0
+            PUT newline
+
+    IF dow MOD 7 ≠ 0
+        PUT newline   
+END

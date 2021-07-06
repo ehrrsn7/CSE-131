@@ -1,0 +1,238 @@
+SHORT VERSIONS:
+
+function (1): VALIDATE INPUT
+params:
+    input (string)
+return:
+    is_valid (boolean)
+description:
+    validate input string if it is in the correct format:
+    a letter and a number (ex: 'A1')
+
+// handle incorrect length
+IF input length IS NOT 2: RETURN FALSE
+
+/** handle incorrect format **/
+// first value not a character
+IF first character in string IS NOT type character: RETURN FALSE
+
+// character value not in range
+IF first character in string IS NOT in range [A>>I]: RETURN FALSE
+
+// second value not a character
+IF second character in string IS NOT type integer: RETURN FALSE
+
+// integer value not in range
+IF second character in string IS NOT in range [1>>9]: RETURN FALSE
+
+ELSE: (all conditions met)
+    RETURN TRUE
+
+
+
+function (2): APPLY GAME RULES
+params:
+    desired location (string) [format: a letter and a number - ex: 'A1']
+    desired value (integer)
+    combined grid (2-dimensional static array)
+return:
+    is legal (boolean)
+description:
+    verifies the input according to the rules of sudoku.
+
+// number must be in valid range
+IF desired value is not in range [1>>9]: RETURN FALSE
+
+// validate by row
+FOR cell numbers in row:
+    IF desired value IS cell number: RETURN FALSE
+
+// validate by column
+FOR cell numbers in column:
+    IF desired value IS cell number: RETURN FALSE
+
+// validate by square
+if desired column is in 1-3:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+if desired column is in 4-6:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+if desired column is in 7-9:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+IF desired value IS EQUAL TO any of the values in square:
+    RETURN FALSE
+ELSE IF not: RETURN TRUE
+
+
+
+LONG VERSIONS:
+********************************
+FUNCTION ALGORITHM #1 PSEUDOCODE
+Validate Input
+PARAMETER:
+Input (string)
+    - desired format: 'A1' or any combination of a letter and number
+    - 2-value string to designate desired location for user to place value
+RETURN VALUE: 
+Is Valid (boolean)
+    - true: input string is value in desired format 'A1'
+    - false: inp. string does NOT have the disired format
+********************************
+
+* check string length
+IF input string has length of 2: correct length (continue function)
+ELSE IF string has other length: incorrect length (RETURN FALSE, EXIT FUNCTION)
+
+* check first character value and range
+* value (must be letter)
+IF first value of string IS character: correct (continue)
+ELSE IF NOT: incorrect (RETURN FALSE, END)
+* range (must be in range [A>>I])
+IF first value of string IS IN range A>>I: correct (continue)
+ELSE IF NOT: incorrect (RETURN FALSE, END)
+
+* check first character value and range
+* value (must be integer)
+IF second value of string IS integer: correct (continue)
+ELSE IF NOT: incorrect (RETURN FALSE, END)
+* range (must be in range [1>>9])
+IF second value of string IS IN range 1>>9: correct (continue)
+ELSE IF NOT: incorrect (RETURN FALSE, END)
+
+IF all above conditions are true: (or in other words, if a `RETURN FALSE` statement wasn't yet reached and so this code is executed)
+    RETURN TRUE (input string is valid)
+
+
+********************************
+FUNCTION ALGORITHM #2 PSEUDOCODE
+Apply Game Rules
+PARAMETERS:
+desired location (string format)
+    - grid location where the user would like to place value
+    - string format: 'A1' or any combination of a letter and number
+desired value (integer value)
+    - value user would like to place on grid at location
+combined grid (2 dimensional array)
+    - grid with both user inputs and original board values which make up the current sudoku board
+        * (remember, the function Is Filled Square should already have checked for different cases of a user-filled, 
+        non-user filled and non-filled cell, so we need to not check that here)
+RETURN VALUE:
+Is Legal (accept or decline) - boolean value (true: legal input, false: illegal input)
+********************************
+
+* Sudoku Rule Nº 1:
+* Every square can consist of a single digit between 1 and 9 exclusively, or can be blank.
+IF desired value is a number between 0 (blank) and 9: continue
+ELSE: is not legal (RETURN FALSE, stop this function)
+
+* Sudoku Rule Nº 2:
+* There is no more than one instance of a given number on a given row.
+IN desired row (desired location -> row) in grid:
+    FOR each cell 1-9 in row:
+        record cell contents for comparison
+        IF cell is blank, skip it
+    FOR each non-blank value from row:
+        IF value equals desired value (from user):
+            is not legal (RETURN FALSE, etc.. )
+
+* Sudoku Rule Nº 3:
+* There is no more than one instance of a given number on a given column.
+IN desired column in grid:
+    FOR each cell 1-9 in row:
+        record cell contents for comparison
+        IF cell is blank, skip it
+    FOR each non-blank value from column:
+        IF value equals desired value (from user):
+            is not legal (RETURN FALSE)
+
+* Sudoku Rule Nº 4:
+* There is no more than one instance of a given number on an inside square (the 3x3 squares embedded in the 9x9 grid).
+desired column cases: * (use switch statment if possible)
+if desired column is in 1-3:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+if desired column is in 4-6:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+if desired column is in 7-9:
+    FOR each column in 1-3:
+        if desired row is in 1-3:
+            FOR each row in 1-3:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 4-6:
+            FOR each row in 4-6:
+                record cell contents for comparison
+                IF cell is blank, skip it
+        if desired row is in 7-9:
+            FOR each row in 7-9:
+                record cell contents for comparison
+                IF cell is blank, skip it
+
+IF value equals desired value (from user):
+    is not legal (RETURN FALSE)
+
+(if) all tests pass: it is legal (RETURN TRUE)
+

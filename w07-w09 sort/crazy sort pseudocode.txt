@@ -1,0 +1,67 @@
+
+FUNCTION sort(subset):
+// SORT ALGORITHM
+
+x_i <- subset length - 1 // index of last item in subset[]
+x   <- subset[x_i]       // item which is out of order (last item in subset[])
+
+FOR i: 0 -> subset[] length:
+    item <- subset[i]
+
+    if x < item:
+
+        SWAP subset[i] and subset[x_i]
+        // this swapping tactic is continued until subset is sorted.
+
+RETURN subset // (sorted)
+
+
+FUNCTION parse_and_merge_sort(list <- GET List[])
+
+subsets <- new List[][]
+subset[] <- new List[]
+
+smallest_item <- list[0] - 1
+
+FOR item in list[]:
+
+    IF item > smallest_item:
+
+        APPEND item -> subset[]
+
+    ELSE:
+
+        APPEND subset[] -> subsets[][]
+        subset <- new (empty) List[]
+
+// (result: nearly-sorted 'subsets' of list within list 
+//  represented as lists[] in subsets[])
+
+// sort subsets
+
+FOR subset[] in subsets[][]:
+
+    sorted_subset <- sort(subset[])
+
+// subsets are sorted
+// merge subsets
+
+merged_list <- new List[]
+
+WHILE subsets length > 0:
+
+    // merge current 'merged list' with another subset
+    FOR item in subsets[0]:
+
+        APPEND item -> merged_list[]
+    
+    // we no longer need the old subset since it is now merged
+    REMOVE subset[0] from subsets[][] // (subset length -== 1)
+
+    // merged list has new contents, perform insertion sort again
+    merged_list <- sort(merged_list)
+
+// END RESULT
+// when 'while' loop ends, 'merged_list' should be the sorted list.
+sorted_list = merged_list
+RETURN sorted_list

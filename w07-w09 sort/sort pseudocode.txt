@@ -1,0 +1,16 @@
+function:   SORT
+parameters: 
+return:     
+
+current <- array[0]
+previous <- current - 1
+
+FOR i: 0 -> array length
+
+    current = array[i]
+
+    IF (current < previous) // out of order
+
+        SWAP current with previous
+
+    previous = array[i]

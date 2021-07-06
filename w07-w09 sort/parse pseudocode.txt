@@ -1,0 +1,26 @@
+function:   PARSE
+parameter:  array (LIST)
+return:     subsets (2-D LIST)
+
+
+// DEFINE
+// values
+current val <- array[0] // value of array at current index (initialized at i == 0)
+previous val <- array[0] - 1 // value of array at previous index - doesn't really matter what the initial value is, as long as it's initially lower than the current
+// arrays
+nth array   <- empty     LIST // 'rough draft' array for the individual subsets
+subsets     <- empty 2-D LIST // to hold all the subsets which will be the end results of 'nth array'
+
+FOR i: 0 -> array length
+
+    current val <- array[i]
+    APPEND current val to end of nth array
+
+    IF (previous val > current val) // first val out of correct order
+
+        APPEND nth array to subsets array
+        nth array <- [] // reinitialize to empty list
+
+    previous val <- current val // update previous val
+
+return subsets
